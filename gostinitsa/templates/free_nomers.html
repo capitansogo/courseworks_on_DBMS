@@ -1,0 +1,50 @@
+{% extends "navbar.html" %}
+{% load static %}
+{% block content %}
+    <!-- Breadcrumb Section Begin -->
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <h2>Free nomers</h2>
+                        <div class="bt-option">
+                            <a href="{% url 'index' %}">Home</a>
+                            <span>Users</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section End -->
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Nomer</th>
+                    <th scope="col">Size</th>
+                    <th scope="col" style="text-align: center">Count peoples</th>
+                    <th scope="col" style="text-align: center">Count rooms</th>
+                    <th scope="col" style="text-align: center">Count beds</th>
+                    <th scope="col">Cost</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for n in nomers %}
+                    <tr>
+                        <td>{{ n.name }}</td>
+                        <td>{{ n.size }}</td>
+                        <td style="text-align: center">{{ n.count_people }}</td>
+                        <td style="text-align: center">{{ n.count_rooms }}</td>
+                        <td style="text-align: center">{{ n.count_beds }}</td>
+                        <td>{{ n.cost }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

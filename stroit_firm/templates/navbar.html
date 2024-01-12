@@ -1,0 +1,178 @@
+<!doctype html>
+<html class="no-js" lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Home || Jantrik Bootstrap4 Template for Tools, Equipment Store</title>
+    <meta name="description" content="Default Description">
+    <meta name="keywords" content="E-commerce"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% load static %}
+    <!-- place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/icon/favicon.png' %}">
+    <!-- Google Font css -->
+    <link href="https://fonts.googleapis.com/css?family=Lily+Script+One" rel="stylesheet">
+
+    <!-- mobile menu css -->
+    <link rel="stylesheet" href="{% static 'css/meanmenu.min.css' %}">
+    <!-- animate css -->
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <!-- nivo slider css -->
+    <link rel="stylesheet" href="{% static 'css/nivo-slider.css' %}">
+    <!-- owl carousel css -->
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <!-- slick css -->
+    <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+    <!-- price slider css -->
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+    <!-- fontawesome css -->
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <!-- fancybox css -->
+    <link rel="stylesheet" href="{% static 'css/jquery.fancybox.css' %}">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- default css  -->
+    <link rel="stylesheet" href="{% static 'css/default.css' %}">
+    <!-- style css -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+    <!-- modernizr js -->
+    <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+</head>
+
+<body>
+<!-- Wrapper Start -->
+<div class="wrapper homepage">
+    <!-- Header Area Start -->
+    <header>
+        <!-- Header Bottom Start -->
+        <div class="header-bottom header-sticky">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-2 col-sm-5 col-5">
+                        <div class="logo">
+                            <a href="{% url 'index' %}"><img src="{% static 'img/logo/logo.png' %}"
+                                                             alt="logo-image"></a>
+                        </div>
+                    </div>
+                    <!-- Primary Vertical-Menu End -->
+                    <!-- Search Box Start -->
+                    <div class="col-xl-6 col-lg-7 d-none d-lg-block">
+                        <div class="middle-menu pull-right">
+                            <nav>
+                                <ul class="middle-menu-list">
+                                    <li><a href="{% url 'index' %}">home</a></li>
+                                    <li><a href="{% url 'shop' %}">catalog<i class="fa fa-angle-down"></i></a>
+                                        <!-- Home Version Dropdown Start -->
+                                        <ul class="ht-dropdown dropdown-style-two">
+                                            <li><a href="{% url 'shop' %}">Инструменты</a>
+                                                <!-- Start Two Step -->
+                                                <ul class="ht-dropdown dropdown-style-two sub-menu">
+                                                    {% for g in get_sub_types1 %}
+                                                        <li><a href="{% url 'shop' %}">{{ g.name }}</a></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                            <li><a href="{% url 'shop' %}">Краски</a>
+                                                <ul class="ht-dropdown dropdown-style-two sub-menu">
+                                                    {% for g in get_sub_types2 %}
+                                                        <li><a href="{% url 'shop' %}">{{ g.name }}</a></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                            <li><a href="{% url 'shop' %}">Сад</a>
+                                                <ul class="ht-dropdown dropdown-style-two sub-menu">
+                                                    {% for g in get_sub_types2 %}
+                                                        <li><a href="{% url 'shop' %}">{{ g.name }}</a></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                        <!-- Home Version Dropdown End -->
+                                    </li>
+                                    {% if user.is_superuser %}
+                                        <li><a href="">Для администратора</a>
+                                        <ul class="ht-dropdown dropdown-style-two">
+                                            <li><a href="{% url 'admin:index' %}">Админка</a></li>
+                                            <li><a href="{% url 'signup' %}">Добавить пользователя</a></li>
+                                            <li><a href="{% url 'add_material' %}">Добавить товар</a></li>
+                                        </ul>
+                                    {% endif %}
+                                    </li>
+                                    {% if user.is_staff%}
+                                        <li><a href="">Для оператора</a>
+                                        <ul class="ht-dropdown dropdown-style-two">
+                                            <li><a href="{% url 'sales' %}">Заказы</a></li>
+                                        </ul>
+                                    {% endif %}
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <!-- Search Box End -->
+                    <!-- Cartt Box Start -->
+                    <div class="col-lg-3 col-sm-7 col-7">
+                        <div class="cart-box text-right">
+                            <ul>
+                                <li><a href=""><i class="fa fa-cog"></i></a>
+                                    <ul class="ht-dropdown">
+                                        <li><a href="{% url 'login' %}">Login</a></li>
+                                        <li><a href="{% url 'signup' %}">Register</a></li>
+                                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                                    </ul>
+                                </li>
+                                {% if user.is_authenticated and not user.is_staff and not user.is_superuser%}
+                                    <li><a href="{% url 'cart' %}"><i class="fa fa-shopping-basket"></i><span
+                                            class="cart-counter">{{ count }}</span></a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Cartt Box End -->
+                </div>
+                <!-- Row End -->
+            </div>
+            <!-- Container End -->
+        </div>
+        <!-- Header Bottom End -->
+    </header>
+    <!-- Header Area End -->
+
+    {% block content %}
+    {% endblock %}
+</div>
+<!-- Wrapper End -->
+<!-- jquery 3.12.4 -->
+<script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+<!-- mobile menu js  -->
+<script src="{% static 'js/jquery.meanmenu.min.js' %}"></script>
+<!-- owl-carousel js -->
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<!-- slick js -->
+<script src="{% static 'js/slick.min.js' %}"></script>
+<!-- wow js -->
+<script src="{% static 'js/wow.min.js' %}"></script>
+<!-- price slider js -->
+<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'js/jquery.countdown.min.js' %}"></script>
+<!-- nivo slider js -->
+<script src="{% static 'js/jquery.nivo.slider.js' %}"></script>
+<!-- fancybox js -->
+<script src="{% static 'js/jquery.fancybox.min.js' %}"></script>
+<!-- bootstrap -->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<!-- popper -->
+<script src="{% static 'js/popper.js' %}"></script>
+<!-- plugins -->
+<script src="{% static 'js/plugins.js' %}"></script>
+<!-- main js -->
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

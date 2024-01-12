@@ -1,0 +1,53 @@
+{% extends "navbar.html" %}
+{% load static %}
+{% block content %}
+    <!-- Breadcrumb Section Begin -->
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <h2>All users</h2>
+                        <div class="bt-option">
+                            <a href="{% url 'index' %}">Home</a>
+                            <span>Users</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section End -->
+    <div class="row justify-content-center">
+    <a class ="print-doc" href="javascript:(print());"><button class="primary-btn">Печать</button></a>
+        <div class="col-10">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">First name</th>
+                    <th scope="col">Last name</th>
+                    <th scope="col">Room</th>
+                    <th scope="col">Date start</th>
+                    <th scope="col">Date end</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for b in bron %}
+                    <tr>
+                        <td>{{ b.id_user.first_name }}</td>
+                        <td>{{ b.id_user.last_name }}</td>
+                        <td>{{ b.id_nomer.name }}</td>
+                        <td>{{ b.date_start }}</td>
+                        <td>{{ b.date_end }}</td>
+                        <td><a href="{% url 'bron_update' b.id %}" style="color: black">Edit</a></td>
+                        <td><a href="{% url 'bron_delete' b.id %}" style="color: black">Cancel</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детали клиента</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">Страховая компания</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'insurances' %}">Договоры страхования</a>
+                </li>
+                {% if user.role == 'Бухгалтер' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Зарплаты</a>
+                    </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'clients' %}">Клиенты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile' user.id %}">Профиль</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container mt-5">
+    <h2>Детали клиента</h2>
+    <h3>Информация о клиенте:</h3>
+    <p><strong>Имя пользователя:</strong> {{ client.username }}</p>
+    <p><strong>Имя:</strong> {{ client.first_name }}</p>
+    <p><strong>Фамилия:</strong> {{ client.last_name }}</p>
+    <p><strong>Email:</strong> {{ client.email }}</p>
+    <p><strong>Телефон:</strong> {{ client.phone }}</p>
+    <p><strong>Паспорт:</strong> {{ client.passport }}</p>
+
+    <h3>Страховки клиента:</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Тип страховки</th>
+            <th scope="col">Дата</th>
+            <th scope="col">Номер договора</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for insurance in insurances %}
+            <tr>
+                <td>{{ insurance.type }}</td>
+                {% if insurance.type == 'Автостраховка' %}
+                    <td><a href="{% url 'detail_auto_insurance' insurance.id %}">{{ insurance.date }}</a></td>
+                {% elif insurance.type == 'Медицинская страховка' %}
+                    <td><a href="{% url 'detail_health_insurance' insurance.id %}">{{ insurance.date }}</a></td>
+                {% elif insurance.type == 'Имущественная страховка' %}
+                    <td><a href="{% url 'detail_property_insurance' insurance.id %}">{{ insurance.date }}</a></td>
+                {% else %}
+                    <td>{{ insurance.date }}</td>
+                {% endif %}
+                <td>{{ insurance.id }}</td>
+                {% if insurance.type == 'Автостраховка' %}
+                    <td><a href="{% url 'update_auto_insurance' insurance.id %}" class="btn btn-outline-warning">Редактировать</a>
+                    </td>
+                {% elif insurance.type == 'Медицинская страховка' %}
+                    <td><a href="{% url 'update_health_insurance' insurance.id %}" class="btn btn-outline-warning">Редактировать</a>
+                    </td>
+                {% elif insurance.type == 'Имущественная страховка' %}
+                    <td><a href="{% url 'update_property_insurance' insurance.id %}" class="btn btn-outline-warning">Редактировать</a>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

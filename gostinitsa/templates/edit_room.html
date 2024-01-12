@@ -1,0 +1,36 @@
+{% extends "navbar.html" %}
+{% load static %}
+{% block content %}
+    <!-- Breadcrumb Section Begin -->
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <h2>Our Rooms</h2>
+                        <div class="bt-option">
+                            <a href="./home.html">Home</a>
+                            <span>Rooms</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Rooms Section Begin -->
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="rooms-section spad">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-4">
+                        {{ form.as_p }}
+                        <button type="submit" class="site-btn">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

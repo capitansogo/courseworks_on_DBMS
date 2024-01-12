@@ -1,0 +1,93 @@
+{% extends "navbar.html" %}
+{% load static %}
+{% block content %}
+    <!-- Breadcrumb Start -->
+    <div class="breadcrumb-area pt-60 pb-55 pt-sm-30 pb-sm-20">
+        <div class="container">
+            <div class="breadcrumb">
+                <ul>
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li class="active"><a href="{% url 'sales' %}">Orders</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Container End -->
+    </div>
+    <!-- Breadcrumb End -->
+    <!-- Cart Main Area Start -->
+    <div class="cart-main-area pb-80 pb-sm-50">
+        <div class="container">
+            <h2 class="text-capitalize sub-heading">Orders</h2>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Table Content Start -->
+                    <div class="table-content table-responsive mb-50">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th class="product-name">User</th>
+                                <th class="product-thumbnail">Image</th>
+                                <th class="product-name">Product</th>
+                                <th class="product-price">Price</th>
+                                <th class="product-quantity">Quantity</th>
+                                <th class="product-subtotal">Total</th>
+                                <th class="product-remove">Remove</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for c in cart %}
+                                <tr>
+                                    <td class="product-name">{{ c.user }}</td>
+                                    <td class="product-thumbnail">
+                                        <a href=""><img src="{{ c.material.photo.url }}" alt="cart-image"/></a>
+                                    </td>
+                                    <td class="product-name"><a href="#">{{ c.material }}</a></td>
+                                    <td class="product-price"><span class="amount">{{ c.material.price }}</span></td>
+                                    <td class="product-quantity">{{ c.quantity }}</td>
+                                    <td class="product-subtotal">{{ c.total_cost }}</td>
+                                    <td class="product-remove">
+                                        <a href="{% url 'delete_from_cart' c.id %}"><i class="fa fa-times"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Row End -->
+                <!-- Table Content Start -->
+                    <div class="row">
+                        <!-- Cart Button Start -->
+                        <div class="col-lg-8 col-md-7">
+                            <div class="buttons-cart">
+                                <a href="javascript:(print())">Распечатать</a>
+                            </div>
+                        </div>
+                        <!-- Cart Button Start -->
+                        <!-- Cart Totals Start -->
+                        <div class="col-lg-4 col-md-12">
+                            <div class="cart_totals">
+                                <h2>Orders totals</h2>
+                                <br/>
+                                <table>
+                                    <tbody>
+                                    <tr class="order-total">
+                                        <th>Total</th>
+                                        <td>
+                                            <strong><span class="amount">{{ cost }} руб.</span></strong>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- Cart Totals End -->
+                    </div>
+                    <!-- Row End -->
+                </div>
+            </div>
+            <!-- Row End -->
+        </div>
+    </div>
+    <!-- Cart Main Area End -->
+
+{% endblock %}

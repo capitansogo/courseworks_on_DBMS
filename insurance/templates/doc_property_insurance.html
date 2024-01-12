@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <title>Страховой полис ОСАГО</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+            integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    ></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: rgb(255, 243, 221);
+        }
+
+        .custom_board {
+            border: 1px solid black;
+            height: fit-content;
+            box-sizing: border-box;
+            max-width: 100%;
+            background: rgb(253, 249, 233);
+        }
+
+        .custom_board_light {
+            border: 1px solid black;
+            border-radius: 10px;
+            height: fit-content;
+            box-sizing: border-box;
+            max-width: 100%;
+            background: rgb(255, 237, 245);
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid background-container">
+    <div class="row justify-content-center ">
+        <div class="col-5" style="margin-top: 50px">
+            <h4>Договор имущественного страхования</h4>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-3 custom_board" style="margin-top: 5vh;">
+            <h6>Номер договора</h6>
+            <p>{{ insurance.id }}</p>
+        </div>
+        <div class="col-6">
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin-top: 20px;">
+        <div class="col-9 custom_board">
+            <h6>Фамилия</h6>
+            <p>{{ insurance.client.last_name }}</p>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin-top: 20px;">
+        <div class="col-9 custom_board">
+            <h6>Имя</h6>
+            <p>{{ insurance.client.first_name }}</p>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin-top: 20px;">
+        <div class="col-9 custom_board">
+            <h6>Отчество</h6>
+            <p>{{ insurance.client.patronymic }}</p>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin-top: 20px;">
+        <div class="col-9 custom_board">
+            <h6>Дата рождения</h6>
+            <p>{{ insurance.client.date_birth }}</p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-3" style="margin-top: 30px;">
+            <h6>Сведения об имуществе</h6>
+        </div>
+        <div class="col-6">
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin-top: 20px;">
+        <div class="col-9 custom_board">
+            <h6>Город</h6>
+            <p>{{ insurance.city }}</p>
+            <h6>Улица</h6>
+            <p>{{ insurance.street }}</p>
+            <h6>Дом</h6>
+            <p>{{ insurance.house }}</p>
+            <h6>Квартира (если имеется)</h6>
+            {% if insurance.flat != null %}
+                <p>{{ insurance.flat }}</p>
+            {% endif %}
+            <h6>Тип имущества</h6>
+            <p>{{ insurance.type_building }}</p>
+            <h6>Сумма страхования</h6>
+            <p>{{ insurance.salary }}</p>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin-top: 20px;">
+        <div class="col-9">
+            <h6>9. Дата составления страхового договора <span
+                    class="border-bottom border-black">{{ insurance.date }}</span></h6>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin-top: 20px;">
+        <div class="col-3 custom_board_light">
+            <h6>10. Страхователь</h6>
+            <p>{{ insurance.client.last_name }} {{ insurance.client.first_name }} {{ insurance.client.patronymic }}</p>
+        </div>
+        <div class="col-3">
+        </div>
+        <div class="col-3 custom_board_light">
+            <h6>11. Агент</h6>
+            <p>{{ insurance.agent.last_name }} {{ insurance.agent.first_name }} {{ insurance.agent.patronymic }}</p>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

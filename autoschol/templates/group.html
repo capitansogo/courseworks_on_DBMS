@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Автошкола</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">Главная</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                {% if request.user.is_authenticated %}
+                    {% if request.user.role.name == 'Инструктор' or request.user.role.name == 'Методист' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'groups' %}">Группы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'programs' %}">Программы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'instructors' %}">Инструкторы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'exams' %}">Экзамены</a>
+                        </li><li class="nav-item">
+                            <a class="nav-link" href="{% url 'results_exams' %}">Результаты экзаменов</a>
+                        </li>
+                        {% if request.user.role.name == 'Методист' %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'students' %}">Студенты</a>
+                            </li>
+                        {% endif %}
+
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Войти</a>
+                    </li>
+
+                {% endif %}
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4" style="margin-top: 30px;">
+            <img src="{{ group.teacher.foto_url }}" alt="" class="img rounded"  width="140">
+            <h4 class="fw-normal">{{ group.teacher.first_name }} {{ group.teacher.last_name }}</h4>
+            <p>Стаж: {{ group.teacher.exp }} года</p>
+            <p>Дата трудоустройства: {{ group.teacher.employment_date }}</p>
+            <p>Контактный телефон: {{ group.teacher.phone }}</p>
+        </div>
+    </div>
+    <! -- таблица со студентами -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h2>Студенты</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">ФИО</th>
+                    <th scope="col">Дата рождения</th>
+                    <th scope="col">Телефон</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for student in group.students.all %}
+                    <tr>
+                        <td>{{ student.first_name }} {{ student.last_name }}</td>
+                        <td>{{ student.birthday }}</td>
+                        <td>{{ student.phone }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

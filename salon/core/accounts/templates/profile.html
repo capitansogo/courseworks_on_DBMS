@@ -1,0 +1,74 @@
+{% extends "navbar.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container" style="margin-bottom: 10%;">
+    <div class="row justify-content-center" style="padding:20px;">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-4">
+                <div class="text-center">
+                    <h5>Личные данные</h5>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="text-start">
+                            <h6>Имя:</h6>
+                        </div>
+                        <div class="text-start">
+                            <h6>Фамилия: </h6>
+                        </div>
+                        <div class="text-start">
+                            <h6>Отчество: </h6>
+                        </div>
+                        <div class="text-start">
+                            <h6>Дата рождения: </h6>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="text-center">
+                            <h6>{{ user.first_name }}</h6>
+                        </div>
+                        <div class="text-center">
+                            <h6>{{ user.last_name }}</h6>
+                        </div>
+                        <div class="text-center">
+                            <h6>{{ user.patronymic }}</h6>
+                        </div>
+                        <div class="text-center">
+                            <h6>{{ user.date_of_birth }}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="text-center">
+                    <h5>Ваши записи</h5>
+                </div>
+                <table class="table" style="color: black; text-align: center;">
+                  <thead>
+                    <tr>
+                      <th scope="col">Услуга</th>
+                      <th scope="col">Дата</th>
+                      <th scope="col">Стоимость</th>
+                      <th scope="col">Мастер</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for o in orders %}
+                    <tr>
+                        <td>{{o.types_of_services}}</td>
+                        <td>{{o.date}}</td>
+                        <td>{{o.types_of_services.price}} руб.</td>
+                        <td>{{o.types_of_services.master}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

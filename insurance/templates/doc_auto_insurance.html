@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <title>Страховой полис ОСАГО</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+            integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    ></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: rgb(255, 221, 241);
+        }
+
+        .custom_board {
+            border: 1px solid black;
+            height: fit-content;
+            box-sizing: border-box;
+            max-width: 100%;
+            background: rgb(253, 233, 239);
+        }
+
+        .custom_board_light {
+            border: 1px solid black;
+            border-radius: 10px;
+            height: fit-content;
+            box-sizing: border-box;
+            max-width: 100%;
+            background: rgb(255, 237, 245);
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid background-container">
+    <div class="row justify-content-center text-center">
+        <div class="col-12">
+            <h4>Страховой полис ОСАГО</h4>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <p>Cерия №{{ insurance.id }}</p>
+            <p>ОБЯЗАТЕЛЬНОГО СТРАХОВАНИЯ<br>
+                ГРАЖДАНСКОЙ ОТВЕТСТВЕННОСТИ<br>
+                ВЛАДЕЛЬЦЕВ ТРАНСПОРТНЫХ СРЕДСТВ</p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-6 custom_board">
+            <p>Срок страхования с <span class="border-bottom border-black">{{ insurance.date }}</span></p>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin-top: 20px;">
+        <div class="col-9 custom_board">
+            <h6>1. Страхователь (полное наименование юридического лица или фамилия, имя, отчество) гражданина</h6>
+            <p>{{ insurance.agent.last_name }} {{ insurance.agent.first_name }}</p>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin-top: 20px;">
+        <div class="col-9 custom_board">
+            <h6>2. Собственник транспортного средства (полное наименование юридического лица или фамилия, имя, отчество)
+                гражданина</h6>
+            <p>{{ insurance.client.last_name }} {{ insurance.client.first_name }} {{ insurance.client.patronymic }}</p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-3 custom_board">
+            <h6>Марка, модель транспортного средства</h6>
+            <p>{{ insurance.mark }} {{ insurance.model }}</p>
+        </div>
+        <div class="col-3 custom_board">
+            <h6>Идентификационный номер транспортного средства (VIN)</h6>
+            <p>{{ insurance.vin }}</p>
+        </div>
+        <div class="col-3 custom_board">
+            <h6>Государственный регистрационный знак транспортного средства</h6>
+            <p>{{ insurance.number }}</p>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin-top: 20px;">
+        <div class="col-9 custom_board">
+            <h6>3. Страховая сумма, в пределах которой страховщик при наступлении каждого страхового случая (независимо
+                от количества страховых случаев в течение срока страхования по договору обязательного страхования)
+                обязуется возместить потерпевшим причиненный вред. установлена Федеральным законом от 25 апреля 2002
+                года Nº 40-Ф3 «Об обязательном страховании гражданской ответотвенности владельцев транспортных средств в
+                редакции, действующей на дату заключения (изменения настоящего договора.<br>
+                4. Страховой случай - наступление гражданской ответственности владельца транспортного средства за
+                причинение вреда жизни, здоровью или имуществу потерпевших при использовании транспортного средства,
+                влекущее за собой в соответствий с договором обязательного страхования обязанность страховщика
+                осуществить страховую выплату.<br>
+                5. Страховой полис действует на территории Российской Федерации.</h6>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin-top: 20px;">
+        <div class="col-9 custom_board">
+            <h6>6. Сумма страхования: <span class="border-bottom border-black">{{ insurance.salary }}</span> рублей</h6>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin-top: 20px;">
+        <div class="col-9 custom_board">
+            <h6>7. Страховая премия составляет <span class="border-bottom border-black">{{ agent_salary }}</span> рублей
+            </h6>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin-top: 20px;">
+        <div class="col-9 custom_board">
+            <h6>8. Дополнительные отметки</h6>
+            <p>Страхователь ознакомлен с условиями договора обязательного страхования гражданской ответственности
+                владельцев транспортных средств, в том числе с порядком и сроками выплаты страхового возмещения, и
+                принимает их на себя.</p>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin-top: 20px;">
+        <div class="col-9">
+            <h6>9. Дата составления страхового договора <span
+                    class="border-bottom border-black">{{ insurance.date }}</span></h6>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin-top: 20px;">
+        <div class="col-9">
+            <h6>Страхователю выданы перечень представителей страховщика в субъектах Российской Федерации согласно
+                приложению и два бланка извещения о дорожно-транспортном происшествии.</h6>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin-top: 20px;">
+        <div class="col-3 custom_board_light">
+            <h6>10. Страхователь</h6>
+            <p>{{ insurance.client.last_name }} {{ insurance.client.first_name }} {{ insurance.client.patronymic }}</p>
+        </div>
+        {#        <div class="col-6">#}
+        {#            <h6>11. Страховщик/ представитель страховщика:</h6>#}
+        {#            <p>Подпись:</p>#}
+        {#            <p>Расшифровка подписи:</p>#}
+        {#        </div>#}
+    </div>
+</div>
+</body>
+</html>

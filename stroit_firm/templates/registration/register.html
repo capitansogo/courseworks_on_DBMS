@@ -1,0 +1,147 @@
+{% extends "navbar.html" %}
+{% load static %}
+
+{% block content %}
+    <!-- Breadcrumb Start -->
+    <div class="breadcrumb-area ptb-60 ptb-sm-30">
+        <div class="container">
+            <div class="breadcrumb">
+                <ul>
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li class="active"><a href="{% url 'signup' %}">Register</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Container End -->
+    </div>
+    <!-- Breadcrumb End -->
+    <!-- Register Account Start -->
+    <div class="register-account pb-60">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="register-title">
+                        <h3 class="mb-10">REGISTER ACCOUNT</h3>
+                        <p class="mb-10">If you already have an account with us, please login at the login page.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Row End -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <form class="form-horizontal" method="post" action="{% url 'signup' %}">
+                        {% csrf_token %}
+                        <fieldset>
+                            <legend>Your Personal Details</legend>
+                            <div class="form-group">
+                                <label class="control-label" for="f-name"><span class="require">*</span>Username</label>
+                                <div class="col-sm-10">
+                                    <input type="username" class="form-control" id="f-name" placeholder="Username" name="username">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="f-name"><span class="require">*</span>First
+                                    Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="f-name" placeholder="First Name" name="first_name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="l-name"><span class="require">*</span>Last
+                                    Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="l-name" placeholder="Last Name" name="last_name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="l-name"><span class="require">*</span>Patronymic</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="l-name" placeholder="Patronymic" name="patronymic">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="email"><span class="require">*</span>Enter your email
+                                    address here...</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="email"
+                                           placeholder="Enter your email address here..." name="email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="number"><span
+                                        class="require">*</span>Telephone</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="number" placeholder="Telephone" name="phone">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Your Password</legend>
+                            <div class="form-group">
+                                <label class="control-label" for="pwd"><span class="require">*</span>Password:</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="pwd" placeholder="Password" name="password1">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="pwd-confirm"><span class="require">*</span>Confirm
+                                    Password</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="pwd-confirm"
+                                           placeholder="Confirm password" name="password2">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="buttons newsletter-input">
+                            <input type="submit" value="Continue" class="newsletter-btn">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Row End -->
+        </div>
+        <!-- Container End -->
+    </div>
+    <!-- Register Account End -->
+    <!-- Brand Logo Start -->
+    <div class="brand-area pb-60">
+        <div class="container">
+            <!-- Brand Banner Start -->
+            <div class="brand-banner owl-carousel">
+                <div class="single-brand">
+                    <a href=""><img class="img" src="{% static 'img/brand/1.png' %}" alt="brand-image"></a>
+                </div>
+                <div class="single-brand">
+                    <a href=""><img src="{% static 'img/brand/2.png' %}" alt="brand-image"></a>
+                </div>
+                <div class="single-brand">
+                    <a href=""><img src="{% static 'img/brand/3.png' %}" alt="brand-image"></a>
+                </div>
+                <div class="single-brand">
+                    <a href=""><img src="{% static 'img/brand/4.png' %}" alt="brand-image"></a>
+                </div>
+                <div class="single-brand">
+                    <a href=""><img src="{% static 'img/brand/5.png' %}" alt="brand-image"></a>
+                </div>
+                <div class="single-brand">
+                    <a href=""><img class="img" src="{% static 'img/brand/1.png' %}" alt="brand-image"></a>
+                </div>
+                <div class="single-brand">
+                    <a href=""><img src="{% static 'img/brand/2.png' %}" alt="brand-image"></a>
+                </div>
+                <div class="single-brand">
+                    <a href=""><img src="{% static 'img/brand/3.png' %}" alt="brand-image"></a>
+                </div>
+                <div class="single-brand">
+                    <a href=""><img src="{% static 'img/brand/4.png' %}" alt="brand-image"></a>
+                </div>
+                <div class="single-brand">
+                    <a href=""><img src="{% static 'img/brand/5.png' %}" alt="brand-image"></a>
+                </div>
+            </div>
+            <!-- Brand Banner End -->
+        </div>
+    </div>
+    <!-- Brand Logo End -->
+
+{% endblock %}

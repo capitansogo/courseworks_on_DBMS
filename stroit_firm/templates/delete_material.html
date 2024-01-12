@@ -1,0 +1,31 @@
+{% extends "navbar.html" %}
+{% load static %}
+{% block content %}
+    <div class="breadcrumb-area ptb-60 ptb-sm-30">
+        <div class="container">
+            <div class="breadcrumb">
+                <ul>
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'shop' %}">Shop</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Container End -->
+    </div>
+    <div class="main-product-thumbnail pb-60">
+        <div class="container">
+            <h2 class="text-center">Подтвердите удаление</h2>
+            <div class="row justify-content-center" style="margin-top: 40px;">
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="add-cart"
+                            data-toggle="tooltip"
+                            title="add">Удалить
+                    </button>
+                </form>
+            </div>
+            <!-- Row End -->
+        </div>
+        <!-- Container End -->
+    </div>
+{% endblock %}

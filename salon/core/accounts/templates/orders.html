@@ -1,0 +1,39 @@
+{% extends "navbar.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="col-12">
+    <div class="text-center">
+        <h5>Записи</h5>
+    </div>
+    <table class="table" style="color: black; text-align: center;">
+        <thead>
+        <tr>
+            <th scope="col">Услуга</th>
+            <th scope="col">Дата</th>
+            <th scope="col">Стоимость</th>
+            <th scope="col">Мастер</th>
+            <th scope="col">Клиент</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for o in get_orders %}
+        <tr>
+            <td>{{o.types_of_services}}</td>
+            <td>{{o.date}}</td>
+            <td>{{o.types_of_services.price}} руб.</td>
+            <td>{{o.types_of_services.master}}</td>
+            <td>{{o.client}}</td>
+            <td><a href="{% url 'delete_order' o.id %}" class="btn btn-outline-danger">Отменить</a></td>
+            <td><a href="{% url 'edit_order' o.id %}" class="btn btn-outline-primary ">Изменить</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

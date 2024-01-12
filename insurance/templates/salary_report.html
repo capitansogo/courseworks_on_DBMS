@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">Страховая компания</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Главная</a>
+                </li>
+                {% if request.user.role.name == 'Агент' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'insurances' %}">Договоры страхования</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'clients' %}">Клиенты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile' user.id %}">Профиль</a>
+                    </li>
+                {% endif %}
+                {% if request.user.role.name == 'Бухгалтер' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'salary_report' %}">Зарплаты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'agents' %}">Агенты</a>
+                    </li>
+                {% endif %}
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container mt-5">
+    <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-outline-primary">Рассчитать зарплату</button>
+    </form>
+
+    {% if results %}
+        <h4 class="mt-5">Общие зарплаты</h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Агент</th>
+                <th scope="col">Зарплата</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for result in results %}
+                <tr>
+                    <td>{{ result.agent }}</td>
+                    <td>{{ result.salary }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+<div class="container mt-5">
+    {#    'labels': labels, 'data': data, 'average_salary': average_salary#}
+    {% if labels %}
+        <h4 class="mt-5">Средний доход агента</h4>
+        <p>{{ average_salary }} рублей</p>
+        <canvas id="myChart" height="100"></canvas>
+    {% endif %}
+    {# 'labels_auto': labels_auto, 'data_auto': data_auto, 'labels_health': labels_health, #}
+    {#                   'data_health': data_health, 'labels_property': labels_property, 'data_property': data_property}#}
+    {% if labels_auto %}
+        <h4 class="mt-5">Средняя сумма сделки по видам страхования</h4>
+        <div class="row">
+            <div class="col-4">
+                <h5>Автомобильное страхование</h5>
+                <canvas id="autoChart" height="200"></canvas>
+            </div>
+            <div class="col-4">
+                <h5>Страхование здоровья</h5>
+                <canvas id="healthChart" height="200"></canvas>
+            </div>
+            <div class="col-4">
+                <h5>Имущественное страхование</h5>
+                <canvas id="propertyChart" height="200"></canvas>
+            </div>
+        </div>
+    {% endif %}
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{ labels|safe }},
+            datasets: [{
+                label: 'Средний доход',
+                data: {{ data|safe }},
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function (value, index, values) {
+                            return value + ' руб.';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    var autoCtx = document.getElementById('autoChart').getContext('2d');
+    var autoChart = new Chart(autoCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ labels_auto|safe }},
+            datasets: [{
+                label: 'Средняя сумма сделок',
+                data: {{ data_auto|safe }},
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)',
+
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function (value, index, values) {
+                            return value + ' руб.';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    var healthCtx = document.getElementById('healthChart').getContext('2d');
+    var healthChart = new Chart(healthCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ labels_health|safe }},
+            datasets: [{
+                label: 'Средняя сумма сделок',
+                data: {{ data_health|safe }},
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)',
+
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function (value, index, values) {
+                            return value + ' руб.';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    var propertyCtx = document.getElementById('propertyChart').getContext('2d');
+    var propertyChart = new Chart(propertyCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ labels_property|safe }},
+            datasets: [{
+                label: 'Средняя сумма сделок',
+                data: {{ data_property|safe }},
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)',
+
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function (value, index, values) {
+                            return value + ' руб.';
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

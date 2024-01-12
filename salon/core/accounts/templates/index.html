@@ -1,0 +1,198 @@
+{% extends "navbar.html" %}
+{% load static %}
+{% block content %}
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 ftco-animate">
+                <div class="media d-block text-center block-6 services">
+                    <div class="icon d-flex mb-3"><span class="flaticon-facial-treatment"></span></div>
+                    <div class="media-body">
+                        <h3 class="heading">Skin &amp; Beauty Care</h3>
+                        <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
+                            unorthographic.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 ftco-animate">
+                <div class="media d-block text-center block-6 services">
+                    <div class="icon d-flex mb-3"><span class="flaticon-cosmetics"></span></div>
+                    <div class="media-body">
+                        <h3 class="heading">Makeup Pro</h3>
+                        <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
+                            unorthographic.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 ftco-animate">
+                <div class="media d-block text-center block-6 services">
+                    <div class="icon d-flex mb-3"><span class="flaticon-curl"></span></div>
+                    <div class="media-body">
+                        <h3 class="heading">Hair Style</h3>
+                        <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
+                            unorthographic.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section ftco-animate text-center">
+                <h2 class="mb-4">Our Beauty Experts</h2>
+            </div>
+        </div>
+        <div class="row">
+            {% for g in get_staff %}
+            <div class="col-lg-3 d-flex mb-sm-4 ftco-animate">
+                <div class="staff">
+                    <div class="img mb-4" style="background-image: url({{ g.photo.url }});"></div>
+                    <div class="info text-center">
+                        <h3><a href="teacher-single.html">{{ g.last_name }} {{ g.first_name }}</a></h3>
+                        <span class="position">{{ g.position }}</span>
+                        <div class="text">
+                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
+                                there live the blind texts.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section ftco-discount img" style="background-image: url(static/images/bg_2.jpg);">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row justify-content-end">
+            <div class="col-md-5 discount ftco-animate">
+                <h3>Save up to 25% Off</h3>
+                <h2 class="mb-4">Student Discount</h2>
+                <p class="mb-4">Наш салон красоты предоставляет студентам скидку в 25 процентов на наши услуги.
+                    Для получения скидки необходимо предъявить студенческий билет или справку из деканата.
+                    Скидка действует при условии, что клиент посещает наш салон не реже одного раза в месяц.</p>
+                <p><a href="#" class="btn btn-white btn-outline-white px-4 py-3">Услуги</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2 class="mb-4">Our Work</h2>
+            </div>
+        </div>
+        <div class="row">
+
+            {% for t in ToS %}
+            <div class="col-md-4 ftco-animate">
+                <a href="{% url 'services' %}" class="work-entry">
+                    <img src="{{ t.prewiev.url }}" class="img-fluid" alt="Colorlib Template">
+                    <div class="info d-flex align-items-center">
+                        <div>
+                            <div class="icon mb-4 d-flex align-items-center justify-content-center">
+                                <span class="icon-search"></span>
+                            </div>
+                            <h3>{{ t.name }}</h3>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+<section class="ftco-partner bg-light">
+    <div class="container">
+        <div class="row partner justify-content-center">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-3 ftco-animate">
+                        <a href="https://www.loreal-paris.ru/" class="partner-entry">
+                            <img src="static/images/partner-1.jpg" class="img-fluid" alt="Colorlib template">
+                        </a>
+                    </div>
+                    <div class="col-md-3 ftco-animate">
+                        <a href="https://www.clarins.ru/" class="partner-entry">
+                            <img src="static/images/partner-2.jpg" class="img-fluid" alt="Colorlib template">
+                        </a>
+                    </div>
+                    <div class="col-md-3 ftco-animate">
+                        <a href="https://www.dior.com/ru_ru" class="partner-entry">
+                            <img src="static/images/partner-3.jpg" class="img-fluid" alt="Colorlib template">
+                        </a>
+                    </div>
+                    <div class="col-md-3 ftco-animate">
+                        <a href="https://www.mischobeauty.com/" class="partner-entry">
+                            <img src="static/images/partner-4.jpg" class="img-fluid" alt="Colorlib template">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="ftco-section ftco-counter img" id="section-counter"
+         style="background-image: url(static/images/bg_4.jpg);">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <div class="icon"><span class="flaticon-flower"></span></div>
+                                <span>Makeup Over Done</span>
+                                <strong class="number" data-number="3500">0</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <div class="icon"><span class="flaticon-flower"></span></div>
+                                <span>Procedure</span>
+                                <strong class="number" data-number="1000">0</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <div class="icon"><span class="flaticon-flower"></span></div>
+                                <span>Happy Client</span>
+                                <strong class="number" data-number="3000">0</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3 d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18 text-center">
+                            <div class="text">
+                                <div class="icon"><span class="flaticon-flower"></span></div>
+                                <span>Skin Treatment</span>
+                                <strong class="number" data-number="900">0</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
+  
+
