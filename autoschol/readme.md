@@ -40,3 +40,9 @@
 привязан.
 
 ## Некоторые скриншоты
+![](photo/1.png)
+![](photo/2.png)
+![](photo/3.png)
+![](photo/4.png)
+![](photo/5.png)
+![](photo/6.png)
